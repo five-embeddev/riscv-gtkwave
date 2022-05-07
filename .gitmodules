@@ -4,3 +4,6 @@
 [submodule "extern/riscv-isa-data"]
 	path = extern/riscv-isa-data
 	url = https://github.com/five-embeddev/riscv-isa-data.git
+[submodule "extern/riscv-isa-sim"]
+	path = extern/riscv-isa-sim
+	url = https://github.com/riscv-software-src/riscv-isa-sim.git
