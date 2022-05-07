@@ -6,6 +6,8 @@
 import argparse
 import sys
 import os
+import traceback
+
 
 import yaml
 
@@ -24,14 +26,20 @@ SIZES={
 EXPAND_MAX_WIDTH=16
 
 def eval_field_bits(bits):
+    print("BITS",bits)
     if isinstance(bits,int):
         return bits
     return eval(bits,SIZES)
 
 def gen_field_combs(name, data):
     if len(data['bits']) == 1:
+        print(data['bits'])
         mask = 1 << eval_field_bits(data['bits'][0])
-        return [(0,""),(mask,name)]
+        lsb = eval_field_bits(data['bits'][0])
+        if 'enums' in data:
+            return [(eval_field_bits(value) << lsb, label) for label, value in data['enums'].items()]
+        else:
+            return [(0,""),(mask,name)]
     if len(data['bits']) == 2:
         msb = eval_field_bits(data['bits'][0])
         lsb = eval_field_bits(data['bits'][1])
@@ -40,21 +48,40 @@ def gen_field_combs(name, data):
         max_val = (1 << (msb+1))-1
         mask = max_val & ~(min_val-1)
         if 'enums' in data:
-            return [(value << lsb, name+"="+label) for value, label in data['enums']]
+            return [(eval_field_bits(value) << lsb, label) for label, value in data['enums'].items()]
         elif width < EXPAND_MAX_WIDTH:
-            return [(value << lsb, name+"="+label) for value, label in range(min_val, max_val, min_val)]
+            print(range(min_val, max_val, min_val))
+            return [(value << lsb, f"{name}={value>>lsb}") for value in range(min_val, max_val, min_val)]
         else:
-            raise(RuntimeError("No enum for " + name))
+            return [(0,'')]
 
 def gen_bit_comb(fields):
     # Filter out anything with multi-bit fields and 
-    bits = [gen_field_combs(key,data) for key, data in fields.items() if 'bits' in data]
+
+    bits_simple = [(gen_field_combs(key,data),data)
+                   for key, data in fields.items() 
+                   if 'bits' in data and 'condition' not in data and ('custom' not in data or (not data['custom']))]
+
+    bits_cond = [(gen_field_combs(key,data),data)
+                 for key, data in fields.items() 
+                 if 'bits' in data and 'condition' in data]
+
     def bits_to_str(this, remain):
         if len(remain)>0:
             output = []
             remain_strings = bits_to_str(remain[0], remain[1:])
-            for this_value, this_desc in this:
+            this_data = this[1]
+            this_cond_mask = None
+            this_cond_value = None
+            if 'condition' in this_data:
+                this_cond_mask = eval_field_bits(this_data['condition']['mask'])
+                this_cond_value = eval_field_bits(this_data['condition']['value'])
+                
+            for [this_value, this_desc] in this[0]:
                 for remain_value, remain_desc in remain_strings:
+                    if this_cond_mask:
+                        if not ((this_cond_mask & remain_value) ==  this_cond_value):
+                            continue
                     if this_desc == '' and remain_desc == '':
                         output.append((this_value|remain_value,''))
                     elif this_desc == '' :
@@ -65,9 +92,16 @@ def gen_bit_comb(fields):
                         output.append((this_value|remain_value,this_desc + "|" + remain_desc))
             return output
         else:
-            return this
+            return this[0]
         return this_strings
-    return bits_to_str(bits[0], bits[1:])
+    output_simple = bits_to_str(bits_simple[0], bits_simple[1:])
+    if len(bits_cond)==0:
+        return output_simple
+    else:
+        output = []
+        for bit_cond in bits_cond:
+            output.extend(bits_to_str(bit_cond, bits_simple))
+    return output
 
     
 
@@ -81,7 +115,7 @@ def main():
         try:
             yaml_data = yaml.full_load(fin)
         except yaml.YAMLError as exc:
-            print("ERROR: Parsing YAML file: " + args.yaml)
+            print("ERROR: Parsing YAML file: " + args.yaml)            
             return -1
 
     for reg_name, reg_data in yaml_data['regs'].items():
@@ -93,6 +127,7 @@ def main():
                         fout.write(f"{value:x} {label}\n")
             except Exception as e:
                 print(e)
+                print(traceback.format_exc())
                 pass
 
 
