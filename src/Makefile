@@ -1,10 +1,10 @@
 CXX=g++
+CFLAGS=-g -Og
 CPPFLAGS=\
 		-I ../extern/riscv-isa-sim/riscv/ \
 		-I ../extern/riscv-isa-sim/softfloat/ \
 		-I ../extern/riscv-isa-sim/ 
-CPPFLAGS_decode_addr=\
-		-I ../extern/riscv-isa-sim/fesvr/ 
+CPPFLAGS_decode_addr=
 LDFLAGS=\
 		-L ../extern/riscv-isa-sim/ \
 		-ldisasm \
@@ -21,6 +21,7 @@ decode_addr: decode_addr.cpp
 % : %.cpp
 	${CXX} $^ \
 		-o $@ \
+		${CFLAGS} \
 		-std=c++17 \
 		${CPPFLAGS} \
 		${CPPFLAGS_${@}} \
