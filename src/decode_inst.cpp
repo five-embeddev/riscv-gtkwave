@@ -18,18 +18,27 @@ int main(int argc, char **argv)
 {
 
     // Use the executable name to determine the isa/extension architecture 
-    const std::string prog_name{argv[0]};
+    const std::string prog_path{argv[0]};
+    std::string prog_name;
     // Use '-' as a delimiter
     std::string isa;
     std::vector<std::string> extensions;
-    const auto i0 = prog_name.find('-');
-    if (i0 != std::string::npos) {
-        const auto i1 = prog_name.find('-',i0+1);
-        if (i1 == std::string::npos) {
-            isa.insert(isa.begin(), prog_name.cbegin()+i0+1,prog_name.cend());
+    const auto d0 = prog_path.rfind('/');
+    if (d0 != std::string::npos) {
+        prog_name = prog_path.substr(d0+1);
+    } else {
+        prog_name = prog_path;
+    }
+    const auto i1 = prog_name.rfind('-');
+    if (i1 != std::string::npos) {
+        const auto i0 = prog_name.rfind('-',i1-1);
+        if (i0 == std::string::npos) {
+            isa.insert(isa.begin(), prog_name.cbegin()+i1+1,prog_name.cend());
+            std::cerr << isa << "\n";
         } else  {
             isa.insert(isa.begin(), prog_name.cbegin()+i0+1,prog_name.cbegin()+i1-1);
             extensions.emplace_back(prog_name.cbegin()+i1+1,prog_name.cend());
+            std::cerr << isa << "\n";
         }
     } else {
         isa = DEFAULT_ISA;
