@@ -23,6 +23,9 @@
 #include <map>
 #include <functional>
 #include <iostream>
+#include <fstream>
+#include <iomanip>      // std::setw
+
 
 using reg_t = uint64_t;
 using bswap_t = std::function<reg_t(reg_t)>;
@@ -72,6 +75,7 @@ template<typename ehdr_t,
 void load_elf(const char *buf, 
               const size_t size,
               std::function<void(std::function<reg_t(reg_t)>, const ehdr_t &, const phdr_t &, const uint8_t *data)> handle_phdr,
+              std::function<void(std::function<reg_t(reg_t)>, const ehdr_t &, const shdr_t &, int idx, const std::string &sname, const uint8_t *data)> handle_shdr,
               std::function<void(std::function<reg_t(reg_t)>, const ehdr_t &, const shdr_t &, const sym_t &, const char *symbol)> handle_sym
     ) {
     
@@ -132,15 +136,29 @@ void load_elf(const char *buf,
     for (unsigned i = 0; i < bswap(eh->e_shnum); i++) {
         const unsigned max_len =                                                       
             bswap(sh[bswap(eh->e_shstrndx)].sh_size) - bswap(sh[i].sh_name);     
-        assert(bswap(sh[i].sh_name) < bswap(sh[bswap(eh->e_shstrndx)].sh_size)); 
-        assert(strnlen(shstrtab + bswap(sh[i].sh_name), max_len) < max_len);     
-        if (bswap(sh[i].sh_type) & SHT_NOBITS) continue;
-        assert(size >= bswap(sh[i].sh_offset) + bswap(sh[i].sh_size));           
-        if (strcmp(shstrtab + bswap(sh[i].sh_name), ".strtab") == 0)             
+        if (bswap(sh[i].sh_name) >= bswap(sh[bswap(eh->e_shstrndx)].sh_size)) {
+            throw std::invalid_argument("Section header name offset out of range.");
+        }
+        const auto name_len = strnlen(shstrtab + bswap(sh[i].sh_name), max_len);
+        if (name_len >= max_len) {
+            throw std::invalid_argument("Section header name lenth out of range.");
+        }
+        //if (size < (bswap(sh[i].sh_offset) + bswap(sh[i].sh_size))) {
+        //throw std::invalid_argument("Section header offset lenth out of range.");
+        //}
+
+        std::string sname(shstrtab + bswap(sh[i].sh_name)); 
+        if (sname == ".strtab") {
             strtabidx = i;                                                         
-        if (strcmp(shstrtab + bswap(sh[i].sh_name), ".symtab") == 0)             
-            symtabidx = i;                                                         
+        }
+        else if (sname == ".symtab") {
+            symtabidx = i;
+        }
+
+        handle_shdr(bswap, *eh, sh[i], i, sname, nullptr);
+        
     }                                                                          
+        
     if (strtabidx && symtabidx) {                                              
         const char* strtab = buf + bswap(sh[strtabidx].sh_offset);                     
         const sym_t* sym = (const sym_t*)(buf + bswap(sh[symtabidx].sh_offset));             
@@ -155,6 +173,33 @@ void load_elf(const char *buf,
     }                                                                          
 } 
 
+using addr_map_t = std::map<uint64_t, std::string>;
+
+void dump_symbols(std::ostream &fout, const addr_map_t &symbols, unsigned int skip, bool print_offset) {
+    if (symbols.size() > 0) {
+        auto last_addr = symbols.cbegin()->first;
+        auto last_name = symbols.cbegin()->second;
+        uint64_t offset = 0;
+        for (const auto &i : symbols) {
+            while (last_addr < i.first) {
+                fout << std::hex << std::setw(16) << std::setfill('0') << last_addr 
+                     << std::dec << " " << last_name;
+                if (print_offset) {
+                    fout << "+" << offset;
+                }
+                fout << "\n";
+                last_addr += skip;
+                offset += skip;
+            }
+            fout << std::hex << std::setw(16) << std::setfill('0') <<  i.first 
+                 << std::dec << " " << i.second << "\n";
+            last_addr = i.first + skip;
+            offset = skip;
+            last_name = i.second;
+        }
+    }
+}
+
 int main(int argc, char **argv)
 {
     if (argc != 3) {
@@ -162,7 +207,9 @@ int main(int argc, char **argv)
         return -1;
     }
     const char *elf_file = argv[1];
-    const char *output_prefix = argv[2];
+    const std::string output_prefix{argv[2]};
+    const std::string output_data = output_prefix + "_data.gtkw";
+    const std::string output_func = output_prefix + "_func.gtkw";
 
     int fd = open(elf_file, O_RDONLY);
     if (fd == -1) {
@@ -215,48 +262,104 @@ int main(int argc, char **argv)
 
   std::string sym_file;
   std::string sym_section;
-  
+
+
+  addr_map_t func_addr;
+  addr_map_t data_addr;
+
+  std::vector<std::string> section_names;
+
+  auto handle_shdr = [&](
+      std::function<reg_t(reg_t)> bswap,
+      const auto &ehdr, 
+      const auto &shdr, 
+      int idx,
+      const std::string &sname, 
+      const auto * data) -> void {
+      if (idx >= section_names.size()) {
+          section_names.resize(idx + 1);
+      }
+      section_names[idx] = sname;
+      std::cerr << "SNAME=" << (int) idx << "=" << sname << "@" << std::hex << bswap(shdr.sh_addr) << "-" << bswap(shdr.sh_size) << "\n";
+      addr_map_t *area = nullptr;
+      if (sname == ".text") {
+          area = &func_addr;
+      }
+      if (sname == ".data" || sname == ".bss"  || sname == ".stack" || sname == ".heap" ) {
+          area = &data_addr;
+      }
+      if (area) {
+          (*area)[bswap(shdr.sh_addr)] = sname + ".start";
+          (*area)[bswap(shdr.sh_addr) + bswap(shdr.sh_size)] = sname + ".end";
+      }
+  };
+
   auto handle_sym = [&](
       std::function<reg_t(reg_t)> bswap,
       const auto &ehdr, 
       const auto &shdr, 
       const auto &sym,
       const auto *data) -> void {
+      
       uint8_t st_type = ELF32_ST_TYPE(sym.st_info);
       uint8_t st_bind = ELF32_ST_BIND(sym.st_info);
       if (st_type == STT_FILE) {
           sym_file = data;
-          std::cerr << sym_file << ":file:" <<" = 0x" << std::hex << bswap(sym.st_value) << "\n";
+          std::cerr << sym_file << ":file:" 
+                    <<" = 0x" << std::hex << bswap(sym.st_value) << "\n";
       } 
       else if (st_type == STT_SECTION) {
-          sym_section = data;
+          sym_section = section_names[bswap(sym.st_shndx)];
+          std::cerr << ":section:" << sym_section << "=" << bswap(sym.st_value) << "@" << (int) bswap(sym.st_shndx) <<  "\n"; 
       }
       else if (st_type == STT_OBJECT) {
-          std::cerr << sym_file << ":common:" << sym_section << "." << data <<" = 0x" << std::hex << bswap(sym.st_value) << "\n";
+          data_addr[bswap(sym.st_value)] = data;              
+          std::cerr << sym_file << ":common:" << sym_section << "." << data 
+                    << " = 0x" << std::hex << bswap(sym.st_value) << "\n";
       }
       else if (st_type == STT_FUNC) {
-          std::cerr << sym_file << ":func:" << sym_section << "." << data <<" = 0x" << std::hex << bswap(sym.st_value) << "\n";
+          func_addr[bswap(sym.st_value)] = data;              
+          std::cerr << sym_file << ":func:" << sym_section << "." << data 
+                    << " = 0x" << std::hex << bswap(sym.st_value) << "\n";
+      } else {
+          std::cerr << sym_file << ":other(" << std::hex << (int)st_type << "):"  << sym_section << "." << data 
+                    << " = 0x" << std::hex << bswap(sym.st_value) << "=" << (int) st_bind << "\n";
       }
   };
 
   if (IS_ELFLE(*eh64)) {
     if (IS_ELF32(*eh64)) {
-        load_elf<Elf32_Ehdr, Elf32_Phdr, Elf32_Shdr, Elf32_Sym, true>(buf, size, handle_phdr, handle_sym);
+        load_elf<Elf32_Ehdr, Elf32_Phdr, Elf32_Shdr, Elf32_Sym, true>(
+            buf, size, handle_phdr, handle_shdr, handle_sym);
     } else { 
-        load_elf<Elf64_Ehdr, Elf64_Phdr, Elf64_Shdr, Elf64_Sym, true>(buf, size, handle_phdr, handle_sym);
+        load_elf<Elf64_Ehdr, Elf64_Phdr, Elf64_Shdr, Elf64_Sym, true>(
+            buf, size, handle_phdr, handle_shdr, handle_sym);
     }
   } else {
 #ifndef RISCV_ENABLE_DUAL_ENDIAN
       throw std::invalid_argument("Specified ELF is big endian.  Configure with --enable-dual-endian to enable support");
 #else
       if (IS_ELF32(*eh64)) {
-          LOAD_ELF<Elf32_Ehdr, Elf32_Phdr, Elf32_Shdr, Elf32_Sym, false>(buf, size, handle_phdr, handle_sym);
+          LOAD_ELF<Elf32_Ehdr, Elf32_Phdr, Elf32_Shdr, Elf32_Sym, false>(
+              buf, size, handle_phdr, handle_shdr, handle_sym);
       } else {
-          LOAD_ELF<Elf64_Ehdr, Elf64_Phdr, Elf64_Shdr, Elf64_Sym, false>(buf, size, handle_phdr, handle_sym);
+          LOAD_ELF<Elf64_Ehdr, Elf64_Phdr, Elf64_Shdr, Elf64_Sym, false>(
+              buf, size, handle_phdr, handle_shdr, handle_sym);
       }
 #endif
   }
   
+  {
+      std::ofstream fout_func(output_func, std::ios::out);
+      dump_symbols(fout_func, func_addr, 2, false);
+  }
+
+  {
+      std::ofstream fout_data(output_data, std::ios::out);
+      dump_symbols(fout_data, data_addr, 4, true);
+  }
+
+
   munmap((void*)buf, size);
   close(fd);
   
