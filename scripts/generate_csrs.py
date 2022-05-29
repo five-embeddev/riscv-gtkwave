@@ -124,7 +124,7 @@ def main():
                 values = gen_bit_comb(reg_data['fields'])
                 with open(os.path.join(args.out_dir, reg_name + ".gtkw"),"w") as fout:
                     for value, label in sorted(values):
-                        fout.write(f"{value:x} {label}\n")
+                        fout.write(f"{value:0{16}x} {label}\n")
             except Exception as e:
                 print(e)
                 print(traceback.format_exc())
