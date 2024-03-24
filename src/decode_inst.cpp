@@ -8,6 +8,7 @@
 
 #include "disasm.h"
 #include "extension.h"
+#include "isa_parser.h"
 
 #include <iostream>
 #include <string>
