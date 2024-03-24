@@ -1,0 +1,206 @@
+[*]
+[*] GTKWave Analyzer v3.4.0 (w)1999-2022 BSI
+[*] Sat Mar 16 01:50:48 2024
+[*]
+[dumpfile] "/home/five/five-embeddev-wsl/riscv-gtkwave/example/vcd-trace.fst"
+[dumpfile_mtime] "Sat Mar 16 01:27:08 2024"
+[dumpfile_size] 42838
+[savefile] "/home/five/five-embeddev-wsl/riscv-gtkwave/example/vcd-trace.gtkw"
+[timestart] 1070
+[size] 1533 721
+[pos] -515 -67
+*-1.547141 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] riscv_isa_sim.
+[treeopen] riscv_isa_sim.core0.
+[sst_width] 276
+[signals_width] 134
+[sst_expanded] 1
+[sst_vpaned_height] 200
+@200
+-DATA
+@22
+riscv_isa_sim.core0.bus.addr[63:0]
+riscv_isa_sim.core0.bus.rd_data[63:0]
+riscv_isa_sim.core0.bus.rd_data[63:0]
+@28
+riscv_isa_sim.core0.bus.rd_strobe
+@22
+riscv_isa_sim.core0.bus.size[7:0]
+riscv_isa_sim.core0.bus.wr_data[63:0]
+@2022
+^1 /home/five/five-embeddev-wsl/riscv-gtkwave/example/symbols_data.gtkw
+riscv_isa_sim.core0.bus.wr_data[63:0]
+@28
+riscv_isa_sim.core0.bus.wr_strobe
+@200
+-PC
+@22
+riscv_isa_sim.core0.processor.insn[63:0]
+@4022
+^>1 /home/five/five-embeddev-wsl/riscv-gtkwave/src/decode_inst
+riscv_isa_sim.core0.processor.insn[63:0]
+@22
+riscv_isa_sim.core0.processor.pc[63:0]
+@2022
+^2 /home/five/five-embeddev-wsl/riscv-gtkwave/example/symbols_func.gtkw
+riscv_isa_sim.core0.processor.pc[63:0]
+@22
+riscv_isa_sim.core0.processor.jump_pc[63:0]
+@2022
+^2 /home/five/five-embeddev-wsl/riscv-gtkwave/example/symbols_func.gtkw
+riscv_isa_sim.core0.processor.jump_pc[63:0]
+@22
+riscv_isa_sim.core0.csrs.mepc[63:0]
+@2022
+^2 /home/five/five-embeddev-wsl/riscv-gtkwave/example/symbols_func.gtkw
+riscv_isa_sim.core0.csrs.mepc[63:0]
+@200
+-IRQ
+@29
+riscv_isa_sim.core0.interrupts.mei
+@28
+riscv_isa_sim.core0.interrupts.msi
+riscv_isa_sim.core0.interrupts.mti
+@200
+-CSR
+@22
+riscv_isa_sim.core0.csrs.mstatus[63:0]
+@c02022
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+riscv_isa_sim.core0.csrs.mie[63:0]
+@2028
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(0)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(1)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(2)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(3)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(4)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(5)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(6)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(7)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(8)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(9)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(10)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(11)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(12)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(13)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(14)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(15)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(16)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(17)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(18)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(19)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(20)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(21)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(22)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(23)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(24)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(25)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(26)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(27)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(28)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(29)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(30)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(31)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(32)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(33)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(34)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(35)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(36)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(37)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(38)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(39)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(40)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(41)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(42)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(43)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(44)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(45)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(46)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(47)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(48)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(49)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(50)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(51)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(52)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(53)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(54)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(55)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(56)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(57)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(58)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(59)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(60)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(61)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(62)riscv_isa_sim.core0.csrs.mie[63:0]
+^4 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mie.gtkw
+(63)riscv_isa_sim.core0.csrs.mie[63:0]
+@1401200
+-group_end
+@2022
+^3 /home/five/five-embeddev-wsl/riscv-gtkwave/csr_data/mcause.gtkw
+riscv_isa_sim.core0.csrs.mcause[63:0]
+[pattern_trace] 1
+[pattern_trace] 0
