@@ -2,30 +2,32 @@ GTKWave(https://github.com/gtkwave/gtkwave) Alias Files and External Disassemble
 
 # Programs
 
-  `scripts/generate_csrs.py` - Generate CSR Alias Files
-  `src/decode_addr.cpp`      - Convert elf file to alias files.
-  `src/decode_inst.cpp`      - Decode opcodes to instructions.
+   - `scripts/generate_csrs.py` - Generate CSR Alias Files
+   - `src/decode_addr.cpp`      - Convert elf file to alias files.
+   - `src/decode_inst.cpp`      - Decode opcodes to instructions.
 
 # Data
 
-csr_data/                - Alias Files for 
-   <csr>.gtkw
+   - `csr_data/`                - Alias Files for CSRs
+     - `<csr>.gtkw`            - Decode fields for a given CSR
 
 # Example
 
 Assumes `gtkwave` is in the path.
 
-example/Makefile           - Generates symbol files and runs gtkwave.
-example/vcd-trace.gtkw     - Example GTKWave save file.
+   - `example/Makefile`           - Generates symbol files and runs gtkwave.
+   - `example/vcd-trace.gtkw`     - Example GTKWave save file.
 
-example/main.elf           - Example firmware image.
-example/vcd-trace.vcd      - Trace of `main.elf` running.
-example/vcd-trace.fst      - Trace of `main.elf` running.
+   - `example/main.elf`           - Example firmware image.
+   - `example/vcd-trace.vcd`      - Trace of `main.elf` running.
+   - `example/vcd-trace.fst`      - Trace of `main.elf` running.
 
-example/symbols_data.gtkw  - Symbols from example firmware image.
-example/symbols_func.gtkw  - Functions from example firmware image.
+   - `example/symbols_data.gtkw`  - Symbols from example firmware image.
+   - `example/symbols_func.gtkw`  - Functions from example firmware image.
 
-~~~
+Convert files and run GTKWave.
+
+~~~   
 > make run
 ~~~
 
@@ -42,10 +44,11 @@ example/symbols_func.gtkw  - Functions from example firmware image.
 
 # Using decode_addr
 
-decode_addr <elf file> <output prefix>
 
-   <elf file>      : RISC-V elf binary
-   <output prefix> : Prefix for output files.
+`decode_addr <elf file> <output prefix>`
+
+   - `<elf file>`      : RISC-V elf binary
+   - `<output prefix>` : Prefix for output files.
 
 
 e.g.
@@ -56,8 +59,8 @@ e.g.
 
 Creates:
 
-- main_data.gtkw
-- main_func.gtkw
+- `main_data.gtkw`
+- `main_func.gtkw`
 
 Example Function File:
 ~~~
@@ -93,6 +96,8 @@ Example Data File:
 The ``decode_inst`` takes hex decimal opcodes as stdin and writes the decoded assembly on stdout.
 
 e.g.
+
+Hex opcode data from objdump.
 ~~~
 $ tail main.disasm
 20010ae2:       00000297                auipc   t0,0x0
@@ -107,8 +112,10 @@ $ tail main.disasm
 20010afa:       b7a5                    j       20010a62 <memset+0xe>
 ~~~
 
+Piped into `decode_inst`.
+
 ~~~
-$ cat main.disasm | cut -f2 -d: |cut -c -10 | ./decode_inst  | tail
+$ cat main.disasm | cut -f2 -d: | cut -c -10 | ./decode_inst  | tail
 auipc   t0, 0x0
 c.add   a3, t0
 c.mv    t0, ra
