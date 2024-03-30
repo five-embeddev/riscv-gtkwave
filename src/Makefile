@@ -24,14 +24,39 @@ LDFLAGS_decode_inst=\
 		-lboost_regex
 
 
-all : decode_addr decode_inst
+all : decode_addr decode_inst decode_reg
+
+decoders/decode_factory.cpp : decoders/decode_factory_template.cpp
+	python3 ../extern/development-utils/generators/yaml_jinja.py \
+		--templates decoders \
+		../extern/riscv-isa-data/csr.yaml \
+		decode_factory_template.cpp \
+	    decoders/decode_factory.cpp
+
+decoders/decode_regs.cpp : decoders/decode_regs_template.cpp
+	python3 ../extern/development-utils/generators/yaml_jinja.py \
+		--templates decoders \
+		../extern/riscv-isa-data/csr.yaml \
+		decode_regs_template.cpp \
+	    decoders/decode_regs.cpp
+
+decoders/decode_regs.hpp : decoders/decode_regs_template.hpp
+	python3 ../extern/development-utils/generators/yaml_jinja.py \
+		--templates decoders \
+		../extern/riscv-isa-data/csr.yaml \
+		decode_regs_template.hpp \
+	    decoders/decode_regs.hpp
+
+decoders/decode_regs.cpp : decoders/decode_regs.hpp
 
 clean:
-	rm -f decode_addr decode_inst
+	rm -f decode_addr decode_inst decode_rega
 
 decode_inst: decode_inst.cpp
 
 decode_addr: decode_addr.cpp
+
+decode_reg: decode_reg.cpp decoders/decode_factory.cpp decoders/decode_regs.cpp
 
 % : %.cpp
 	${CXX}\
