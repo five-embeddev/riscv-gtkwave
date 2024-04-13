@@ -9,6 +9,7 @@
 #include "disasm.h"
 #include "extension.h"
 #include "isa_parser.h"
+#include "gtkwave_loop.hpp"
 
 #include <iostream>
 #include <string>
@@ -19,6 +20,10 @@ int main(int argc, char **argv)
 {
 
     // Use the executable name to determine the isa/extension architecture 
+    // e.g 
+    // decode_inst
+    // decode_inst-rv32imac
+    // decode_inst-rv64imac
     const std::string prog_path{argv[0]};
     std::string prog_name;
     // Use '-' as a delimiter
@@ -53,23 +58,12 @@ int main(int argc, char **argv)
         }
     }
 
-    while(!feof(stdin))
-    {
-        char buf[1025];
-        buf[0] = 0;
-        fscanf(stdin, "%s", buf);
-        if(buf[0])
-        {
-            int bits;
-            sscanf(buf, "%x", &bits);
 
-            // TODO - 64 bits & sign extension?
-
-            std::string dis = disassembler->disassemble(bits);
-            printf("%s\n", dis.c_str());
-            fflush(stdout);
-        }
-    }
+    gtkwave_loop(
+        [&](uint64_t v) -> std::string {
+            return disassembler->disassemble(v);
+        });
+        
     return(0);
 }
 

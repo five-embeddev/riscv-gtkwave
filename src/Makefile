@@ -52,9 +52,9 @@ decoders/decode_regs.cpp : decoders/decode_regs.hpp
 clean:
 	rm -f decode_addr decode_inst decode_rega
 
-decode_inst: decode_inst.cpp
+decode_inst: decode_inst.cpp gtkwave_loop.hpp
 
-decode_addr: decode_addr.cpp
+decode_addr: decode_addr.cpp decode_elf_addr.hpp gtkwave_loop.hpp
 
 decode_reg: decode_reg.cpp decoders/decode_factory.cpp decoders/decode_regs.cpp
 
