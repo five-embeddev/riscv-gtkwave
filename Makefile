@@ -24,6 +24,7 @@ csrs:
 	scripts/generate_csrs.py \
 		extern/riscv-isa-data/csr.yaml \
 		csr_data
+	cd csr_data && perl -pi -e 's/^-group_end\n//' *.gtkw
 
 subdirs:
 
