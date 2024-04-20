@@ -8,6 +8,7 @@
 #include <iostream>
 
 #include "decoders/decode_factory.hpp"
+#include "gtkwave_loop.hpp"
 
 int main(int argc, char **argv)
 {
@@ -28,25 +29,10 @@ int main(int argc, char **argv)
     // Create decoder for given register
     auto decoder{decoder_factory::get(reg_name)};
 
-    // Read input from gtkwave
-    while(!feof(stdin))
-    {
-        char buf[1025];
-        buf[0] = 0;
-        fscanf(stdin, "%s", buf);
-        if(buf[0])
-        {
-            int bits;
-            sscanf(buf, "%x", &bits);
-
-            // TODO - 64 bits & sign extension?
-
-            std::string dis = decoder->decode(bits);
-            printf("%s\n", dis.c_str());
-            fflush(stdout);
-        }
-    }
-
+    gtkwave_loop(
+        [&](uint64_t v) -> std::string {
+            return decoder->decode(v);
+        });
 
     return 0;
 }
