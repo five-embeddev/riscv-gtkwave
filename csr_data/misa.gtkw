@@ -1,0 +1,18 @@
+[*] Fields for register misa
+@800200
+-misa
+@22
+riscv_isa_sim.core0.csrs.misa[63:0]
+@28
+[*] Field misa_mxl
+@8
+#{misa_mxl} (0)riscv_isa_sim.core0.csrs.misa[63:0] (1)riscv_isa_sim.core0.csrs.misa[63:0] 
+@28
+[*] Field misa_extensions
+@4
+#{misa_extensions} (38)riscv_isa_sim.core0.csrs.misa[63:0] (39)riscv_isa_sim.core0.csrs.misa[63:0] (40)riscv_isa_sim.core0.csrs.misa[63:0] (41)riscv_isa_sim.core0.csrs.misa[63:0] (42)riscv_isa_sim.core0.csrs.misa[63:0] (43)riscv_isa_sim.core0.csrs.misa[63:0] (44)riscv_isa_sim.core0.csrs.misa[63:0] (45)riscv_isa_sim.core0.csrs.misa[63:0] (46)riscv_isa_sim.core0.csrs.misa[63:0] (47)riscv_isa_sim.core0.csrs.misa[63:0] (48)riscv_isa_sim.core0.csrs.misa[63:0] (49)riscv_isa_sim.core0.csrs.misa[63:0] (50)riscv_isa_sim.core0.csrs.misa[63:0] (51)riscv_isa_sim.core0.csrs.misa[63:0] (52)riscv_isa_sim.core0.csrs.misa[63:0] (53)riscv_isa_sim.core0.csrs.misa[63:0] (54)riscv_isa_sim.core0.csrs.misa[63:0] (55)riscv_isa_sim.core0.csrs.misa[63:0] (56)riscv_isa_sim.core0.csrs.misa[63:0] (57)riscv_isa_sim.core0.csrs.misa[63:0] (58)riscv_isa_sim.core0.csrs.misa[63:0] (59)riscv_isa_sim.core0.csrs.misa[63:0] (60)riscv_isa_sim.core0.csrs.misa[63:0] (61)riscv_isa_sim.core0.csrs.misa[63:0] (62)riscv_isa_sim.core0.csrs.misa[63:0] (63)riscv_isa_sim.core0.csrs.misa[63:0] 
+@28
+@1001200
+@1000200
+-misa
+[*] Done

@@ -1,64 +1,22 @@
-0000000000000000 
-0000000000000001 usi
-0000000000000002 ssi
-0000000000000003 ssi|usi
-0000000000000010 uti
-0000000000000011 usi|uti
-0000000000000012 ssi|uti
-0000000000000013 ssi|usi|uti
-0000000000000020 sti
-0000000000000021 sti|usi
-0000000000000022 ssi|sti
-0000000000000023 ssi|sti|usi
-0000000000000030 sti|uti
-0000000000000031 sti|usi|uti
-0000000000000032 ssi|sti|uti
-0000000000000033 ssi|sti|usi|uti
-0000000000000100 uei
-0000000000000101 usi|uei
-0000000000000102 ssi|uei
-0000000000000103 ssi|usi|uei
-0000000000000110 uti|uei
-0000000000000111 usi|uti|uei
-0000000000000112 ssi|uti|uei
-0000000000000113 ssi|usi|uti|uei
-0000000000000120 sti|uei
-0000000000000121 sti|usi|uei
-0000000000000122 ssi|sti|uei
-0000000000000123 ssi|sti|usi|uei
-0000000000000130 sti|uti|uei
-0000000000000131 sti|usi|uti|uei
-0000000000000132 ssi|sti|uti|uei
-0000000000000133 ssi|sti|usi|uti|uei
-0000000000000200 sei
-0000000000000201 sei|usi
-0000000000000202 ssi|sei
-0000000000000203 ssi|sei|usi
-0000000000000210 sei|uti
-0000000000000211 sei|usi|uti
-0000000000000212 ssi|sei|uti
-0000000000000213 ssi|sei|usi|uti
-0000000000000220 sti|sei
-0000000000000221 sti|sei|usi
-0000000000000222 ssi|sti|sei
-0000000000000223 ssi|sti|sei|usi
-0000000000000230 sti|sei|uti
-0000000000000231 sti|sei|usi|uti
-0000000000000232 ssi|sti|sei|uti
-0000000000000233 ssi|sti|sei|usi|uti
-0000000000000300 sei|uei
-0000000000000301 sei|usi|uei
-0000000000000302 ssi|sei|uei
-0000000000000303 ssi|sei|usi|uei
-0000000000000310 sei|uti|uei
-0000000000000311 sei|usi|uti|uei
-0000000000000312 ssi|sei|uti|uei
-0000000000000313 ssi|sei|usi|uti|uei
-0000000000000320 sti|sei|uei
-0000000000000321 sti|sei|usi|uei
-0000000000000322 ssi|sti|sei|uei
-0000000000000323 ssi|sti|sei|usi|uei
-0000000000000330 sti|sei|uti|uei
-0000000000000331 sti|sei|usi|uti|uei
-0000000000000332 ssi|sti|sei|uti|uei
-0000000000000333 ssi|sti|sei|usi|uti|uei
+[*] Fields for register sie
+@800200
+-sie
+@22
+riscv_isa_sim.core0.csrs.sie[63:0]
+@28
+[*] Field sie_ssi
++{sie_ssi} (62)riscv_isa_sim.core0.csrs.sie[63:0]
+[*] Field sie_sti
++{sie_sti} (58)riscv_isa_sim.core0.csrs.sie[63:0]
+[*] Field sie_sei
++{sie_sei} (54)riscv_isa_sim.core0.csrs.sie[63:0]
+[*] Field sie_usi
++{sie_usi} (63)riscv_isa_sim.core0.csrs.sie[63:0]
+[*] Field sie_uti
++{sie_uti} (59)riscv_isa_sim.core0.csrs.sie[63:0]
+[*] Field sie_uei
++{sie_uei} (55)riscv_isa_sim.core0.csrs.sie[63:0]
+@1001200
+@1000200
+-sie
+[*] Done

@@ -1,8 +1,20 @@
-0000000000000000 
-0000000000000004 sie
-0000000000000020 spie
-0000000000000024 sie|spie
-0000000000000100 spp
-0000000000000104 sie|spp
-0000000000000120 spie|spp
-0000000000000124 sie|spie|spp
+[*] Fields for register sstatus
+@800200
+-sstatus
+@22
+riscv_isa_sim.core0.csrs.sstatus[63:0]
+@28
+[*] Field sstatus_uxl
+@8
+#{sstatus_uxl} (30)riscv_isa_sim.core0.csrs.sstatus[63:0] (31)riscv_isa_sim.core0.csrs.sstatus[63:0] 
+@28
+[*] Field sstatus_sie
++{sstatus_sie} (61)riscv_isa_sim.core0.csrs.sstatus[63:0]
+[*] Field sstatus_spie
++{sstatus_spie} (58)riscv_isa_sim.core0.csrs.sstatus[63:0]
+[*] Field sstatus_spp
++{sstatus_spp} (55)riscv_isa_sim.core0.csrs.sstatus[63:0]
+@1001200
+@1000200
+-sstatus
+[*] Done

@@ -1,8 +1,16 @@
-0000000000000000 
-0000000000000001 usi
-0000000000000010 uti
-0000000000000011 usi|uti
-0000000000000100 uei
-0000000000000101 usi|uei
-0000000000000110 uti|uei
-0000000000000111 usi|uti|uei
+[*] Fields for register uip
+@800200
+-uip
+@22
+riscv_isa_sim.core0.csrs.uip[63:0]
+@28
+[*] Field uip_usi
++{uip_usi} (63)riscv_isa_sim.core0.csrs.uip[63:0]
+[*] Field uip_uti
++{uip_uti} (59)riscv_isa_sim.core0.csrs.uip[63:0]
+[*] Field uip_uei
++{uip_uei} (55)riscv_isa_sim.core0.csrs.uip[63:0]
+@1001200
+@1000200
+-uip
+[*] Done

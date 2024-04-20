@@ -1,66 +1,22 @@
-0000000000000000 INSTRUCTION_ADDRESS_MISALIGNED
-0000000000000001 INSTRUCTION_ACCESS_FAULT
-0000000000000002 ILLEGAL_INSTRUCTION
-0000000000000003 BREAKPOINT
-0000000000000004 LOAD_ADDRESS_MISALIGNED
-0000000000000005 LOAD_ACCESS_FAULT
-0000000000000006 STORE_AMO_ADDRESS_MISALIGNED
-0000000000000007 STORE_AMO_ACCESS_FAULT
-0000000000000008 ENVIRONMENT_CALL_FROM_U_MODE
-0000000000000009 ENVIRONMENT_CALL_FROM_S_MODE
-000000000000000a RESERVED10
-000000000000000c INSTRUCTION_PAGE_FAULT
-000000000000000d LOAD_PAGE_FAULT
-000000000000000e RESERVED14
-000000000000000f STORE_AMO_PAGE_FAULT
-0000000000000010 RESERVED16
-0000000000000011 RESERVED17
-0000000000000012 RESERVED18
-0000000000000013 RESERVED19
-0000000000000014 RESERVED20
-0000000000000015 RESERVED21
-0000000000000016 RESERVED22
-0000000000000017 RESERVED23
-0000000000000018 CUSTOM24
-0000000000000019 CUSTOM25
-000000000000001a CUSTOM26
-000000000000001b CUSTOM27
-000000000000001c CUSTOM28
-000000000000001d CUSTOM29
-000000000000001e CUSTOM30
-000000000000001f CUSTOM31
-0000000000000020 RESERVED32
-0000000000000021 RESERVED33
-0000000000000022 RESERVED34
-0000000000000023 RESERVED35
-0000000000000024 RESERVED36
-0000000000000025 RESERVED37
-0000000000000026 RESERVED38
-0000000000000027 RESERVED39
-0000000000000028 RESERVED40
-0000000000000029 RESERVED41
-000000000000002a RESERVED42
-000000000000002b RESERVED43
-000000000000002c RESERVED44
-000000000000002d RESERVED45
-000000000000002e RESERVED46
-000000000000002f RESERVED47
-0000000000000030 RESERVED48
-0000000000000031 RESERVED49
-0000000000000032 RESERVED50
-0000000000000033 RESERVED51
-0000000000000034 RESERVED52
-0000000000000035 RESERVED53
-0000000000000036 RESERVED54
-0000000000000037 RESERVED55
-0000000000000038 RESERVED56
-0000000000000039 RESERVED57
-000000000000003a RESERVED58
-000000000000003b RESERVED59
-000000000000003c RESERVED60
-000000000000003d RESERVED61
-000000000000003e RESERVED62
-000000000000003f RESERVED63
-0000000080000000 usi|interrupt
-0000000080000004 uti|interrupt
-0000000080000008 uei|interrupt
+[*] Fields for register ucause
+@800200
+-ucause
+@22
+riscv_isa_sim.core0.csrs.ucause[63:0]
+@28
+[*] Field ucause_interrupt
++{ucause_interrupt} (0)riscv_isa_sim.core0.csrs.ucause[63:0]
+[*] Field ucause_interrupt_code
+@2004
+^1 ../csr_data/ucause.interrupt_code.gtkw
+#{ucause_interrupt_code} (1)riscv_isa_sim.core0.csrs.ucause[63:0] (2)riscv_isa_sim.core0.csrs.ucause[63:0] (3)riscv_isa_sim.core0.csrs.ucause[63:0] (4)riscv_isa_sim.core0.csrs.ucause[63:0] (5)riscv_isa_sim.core0.csrs.ucause[63:0] (6)riscv_isa_sim.core0.csrs.ucause[63:0] (7)riscv_isa_sim.core0.csrs.ucause[63:0] (8)riscv_isa_sim.core0.csrs.ucause[63:0] (9)riscv_isa_sim.core0.csrs.ucause[63:0] (10)riscv_isa_sim.core0.csrs.ucause[63:0] (11)riscv_isa_sim.core0.csrs.ucause[63:0] (12)riscv_isa_sim.core0.csrs.ucause[63:0] (13)riscv_isa_sim.core0.csrs.ucause[63:0] (14)riscv_isa_sim.core0.csrs.ucause[63:0] (15)riscv_isa_sim.core0.csrs.ucause[63:0] (16)riscv_isa_sim.core0.csrs.ucause[63:0] (17)riscv_isa_sim.core0.csrs.ucause[63:0] (18)riscv_isa_sim.core0.csrs.ucause[63:0] (19)riscv_isa_sim.core0.csrs.ucause[63:0] (20)riscv_isa_sim.core0.csrs.ucause[63:0] (21)riscv_isa_sim.core0.csrs.ucause[63:0] (22)riscv_isa_sim.core0.csrs.ucause[63:0] (23)riscv_isa_sim.core0.csrs.ucause[63:0] (24)riscv_isa_sim.core0.csrs.ucause[63:0] (25)riscv_isa_sim.core0.csrs.ucause[63:0] (26)riscv_isa_sim.core0.csrs.ucause[63:0] (27)riscv_isa_sim.core0.csrs.ucause[63:0] (28)riscv_isa_sim.core0.csrs.ucause[63:0] (29)riscv_isa_sim.core0.csrs.ucause[63:0] (30)riscv_isa_sim.core0.csrs.ucause[63:0] (31)riscv_isa_sim.core0.csrs.ucause[63:0] (32)riscv_isa_sim.core0.csrs.ucause[63:0] (33)riscv_isa_sim.core0.csrs.ucause[63:0] (34)riscv_isa_sim.core0.csrs.ucause[63:0] (35)riscv_isa_sim.core0.csrs.ucause[63:0] (36)riscv_isa_sim.core0.csrs.ucause[63:0] (37)riscv_isa_sim.core0.csrs.ucause[63:0] (38)riscv_isa_sim.core0.csrs.ucause[63:0] (39)riscv_isa_sim.core0.csrs.ucause[63:0] (40)riscv_isa_sim.core0.csrs.ucause[63:0] (41)riscv_isa_sim.core0.csrs.ucause[63:0] (42)riscv_isa_sim.core0.csrs.ucause[63:0] (43)riscv_isa_sim.core0.csrs.ucause[63:0] (44)riscv_isa_sim.core0.csrs.ucause[63:0] (45)riscv_isa_sim.core0.csrs.ucause[63:0] (46)riscv_isa_sim.core0.csrs.ucause[63:0] (47)riscv_isa_sim.core0.csrs.ucause[63:0] (48)riscv_isa_sim.core0.csrs.ucause[63:0] (49)riscv_isa_sim.core0.csrs.ucause[63:0] (50)riscv_isa_sim.core0.csrs.ucause[63:0] (51)riscv_isa_sim.core0.csrs.ucause[63:0] (52)riscv_isa_sim.core0.csrs.ucause[63:0] (53)riscv_isa_sim.core0.csrs.ucause[63:0] (54)riscv_isa_sim.core0.csrs.ucause[63:0] (55)riscv_isa_sim.core0.csrs.ucause[63:0] (56)riscv_isa_sim.core0.csrs.ucause[63:0] (57)riscv_isa_sim.core0.csrs.ucause[63:0] (58)riscv_isa_sim.core0.csrs.ucause[63:0] (59)riscv_isa_sim.core0.csrs.ucause[63:0] (60)riscv_isa_sim.core0.csrs.ucause[63:0] (61)riscv_isa_sim.core0.csrs.ucause[63:0] (62)riscv_isa_sim.core0.csrs.ucause[63:0] (63)riscv_isa_sim.core0.csrs.ucause[63:0] 
+@28
+[*] Field ucause_exception_code
+@2004
+^2 ../csr_data/ucause.exception_code.gtkw
+#{ucause_exception_code} (1)riscv_isa_sim.core0.csrs.ucause[63:0] (2)riscv_isa_sim.core0.csrs.ucause[63:0] (3)riscv_isa_sim.core0.csrs.ucause[63:0] (4)riscv_isa_sim.core0.csrs.ucause[63:0] (5)riscv_isa_sim.core0.csrs.ucause[63:0] (6)riscv_isa_sim.core0.csrs.ucause[63:0] (7)riscv_isa_sim.core0.csrs.ucause[63:0] (8)riscv_isa_sim.core0.csrs.ucause[63:0] (9)riscv_isa_sim.core0.csrs.ucause[63:0] (10)riscv_isa_sim.core0.csrs.ucause[63:0] (11)riscv_isa_sim.core0.csrs.ucause[63:0] (12)riscv_isa_sim.core0.csrs.ucause[63:0] (13)riscv_isa_sim.core0.csrs.ucause[63:0] (14)riscv_isa_sim.core0.csrs.ucause[63:0] (15)riscv_isa_sim.core0.csrs.ucause[63:0] (16)riscv_isa_sim.core0.csrs.ucause[63:0] (17)riscv_isa_sim.core0.csrs.ucause[63:0] (18)riscv_isa_sim.core0.csrs.ucause[63:0] (19)riscv_isa_sim.core0.csrs.ucause[63:0] (20)riscv_isa_sim.core0.csrs.ucause[63:0] (21)riscv_isa_sim.core0.csrs.ucause[63:0] (22)riscv_isa_sim.core0.csrs.ucause[63:0] (23)riscv_isa_sim.core0.csrs.ucause[63:0] (24)riscv_isa_sim.core0.csrs.ucause[63:0] (25)riscv_isa_sim.core0.csrs.ucause[63:0] (26)riscv_isa_sim.core0.csrs.ucause[63:0] (27)riscv_isa_sim.core0.csrs.ucause[63:0] (28)riscv_isa_sim.core0.csrs.ucause[63:0] (29)riscv_isa_sim.core0.csrs.ucause[63:0] (30)riscv_isa_sim.core0.csrs.ucause[63:0] (31)riscv_isa_sim.core0.csrs.ucause[63:0] (32)riscv_isa_sim.core0.csrs.ucause[63:0] (33)riscv_isa_sim.core0.csrs.ucause[63:0] (34)riscv_isa_sim.core0.csrs.ucause[63:0] (35)riscv_isa_sim.core0.csrs.ucause[63:0] (36)riscv_isa_sim.core0.csrs.ucause[63:0] (37)riscv_isa_sim.core0.csrs.ucause[63:0] (38)riscv_isa_sim.core0.csrs.ucause[63:0] (39)riscv_isa_sim.core0.csrs.ucause[63:0] (40)riscv_isa_sim.core0.csrs.ucause[63:0] (41)riscv_isa_sim.core0.csrs.ucause[63:0] (42)riscv_isa_sim.core0.csrs.ucause[63:0] (43)riscv_isa_sim.core0.csrs.ucause[63:0] (44)riscv_isa_sim.core0.csrs.ucause[63:0] (45)riscv_isa_sim.core0.csrs.ucause[63:0] (46)riscv_isa_sim.core0.csrs.ucause[63:0] (47)riscv_isa_sim.core0.csrs.ucause[63:0] (48)riscv_isa_sim.core0.csrs.ucause[63:0] (49)riscv_isa_sim.core0.csrs.ucause[63:0] (50)riscv_isa_sim.core0.csrs.ucause[63:0] (51)riscv_isa_sim.core0.csrs.ucause[63:0] (52)riscv_isa_sim.core0.csrs.ucause[63:0] (53)riscv_isa_sim.core0.csrs.ucause[63:0] (54)riscv_isa_sim.core0.csrs.ucause[63:0] (55)riscv_isa_sim.core0.csrs.ucause[63:0] (56)riscv_isa_sim.core0.csrs.ucause[63:0] (57)riscv_isa_sim.core0.csrs.ucause[63:0] (58)riscv_isa_sim.core0.csrs.ucause[63:0] (59)riscv_isa_sim.core0.csrs.ucause[63:0] (60)riscv_isa_sim.core0.csrs.ucause[63:0] (61)riscv_isa_sim.core0.csrs.ucause[63:0] (62)riscv_isa_sim.core0.csrs.ucause[63:0] (63)riscv_isa_sim.core0.csrs.ucause[63:0] 
+@28
+@1001200
+@1000200
+-ucause
+[*] Done

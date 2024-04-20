@@ -1,0 +1,14 @@
+[*] Fields for register mstatush
+@800200
+-mstatush
+@22
+riscv_isa_sim.core0.csrs.mstatush[63:0]
+@28
+[*] Field mstatush_mbe
++{mstatush_mbe} (58)riscv_isa_sim.core0.csrs.mstatush[63:0]
+[*] Field mstatush_sbe
++{mstatush_sbe} (59)riscv_isa_sim.core0.csrs.mstatush[63:0]
+@1001200
+@1000200
+-mstatush
+[*] Done
