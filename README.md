@@ -3,8 +3,14 @@ GTKWave(https://github.com/gtkwave/gtkwave) Alias Files and External Disassemble
 # Programs
 
    - `scripts/generate_csrs.py` - Generate CSR Alias Files
-   - `src/decode_addr.cpp`      - Convert elf file to alias files.
-   - `src/decode_inst.cpp`      - Decode opcodes to instructions.
+   - `src/decode_addr.cpp`      - Convert elf file to alias files. (Generate GTKWave Translate File)
+   - `src/decode_addr.cpp`      - Decode elf file to variable names. (GTKWave Filter process)
+   - `src/decode_inst.cpp`      - Decode opcodes to instructions.  (GTKWave Filter process)
+
+# Helpers
+
+   - `src/decode_elf_addr.hpp`  - Decode elf files.
+   - `src/gtkwave_loop.hpp`     - Core loop for GTKWave filter process
 
 # Data
 
@@ -42,7 +48,29 @@ Convert files and run GTKWave.
 > make install PREFIX_DIR=~/.local/
 ~~~
 
-# Using decode_addr
+# Using decode_addr - interactive mode
+
+
+`DECODE_ELF=<elf file> ./decode_addr`
+
+Filter process for `example/main.elf`
+
+e.g.
+
+~~~
+$ cd src/
+$ DECODE_ELF=../example/main.elf ./decode_addr
+0
+-
+0000
+-
+0000000020010000
+_enter
+0000000080000008
+mti_count
+~~~
+
+# Using decode_addr - translate mode
 
 
 `decode_addr <elf file> <output prefix>`

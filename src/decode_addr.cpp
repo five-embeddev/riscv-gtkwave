@@ -33,19 +33,20 @@ int main(int argc, char **argv)
     }
  
     if (interactive_mode) {
-
-    gtkwave_loop(
-        [&](uint64_t v) -> std::string {
-            auto i = func_addr.find(v);
-            if (i != func_addr.end()) {
-                return i->second;
-            }
-            auto j = data_addr.find(v);
-            if (j != data_addr.end()) {
-                return j->second;
-            }
-            return "-";
-        });
+        
+        gtkwave_loop(
+            [&](uint64_t v) -> std::string {
+                auto i = func_addr.find(v);
+                if (i != func_addr.end()) {
+                    return i->second;
+                }
+                auto j = data_addr.find(v);
+                if (j != data_addr.end()) {
+                    return j->second;
+                }
+                return "-";
+            });
+        
     } else {
         const std::string output_prefix{argv[2]};
         const std::string output_data = output_prefix + "_data.gtkw";
