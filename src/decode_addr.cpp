@@ -4,6 +4,8 @@
 // See https://en.wikipedia.org/wiki/Executable_and_Linkable_Format
 
 #include <stdlib.h>
+#include <limits>
+#include <sstream>
 
 #include "decode_elf_addr.hpp"
 #include "gtkwave_loop.hpp"
@@ -25,6 +27,7 @@ int main(int argc, char **argv)
 
     addr_map_t func_addr;
     addr_map_t data_addr;
+    uint64_t word_size = 8;
     
     int rc = open_elf_file(elf_file.c_str(), func_addr, data_addr);
     if (rc < -1) {
@@ -36,15 +39,30 @@ int main(int argc, char **argv)
         
         gtkwave_loop(
             [&](uint64_t v) -> std::string {
-                auto i = func_addr.find(v);
-                if (i != func_addr.end()) {
-                    return i->second;
+                auto i = func_addr.lower_bound(v);
+                if (i !=  func_addr.end()) {
+                    if (i->first == v) {
+                        return i->second.second;
+                    }
+                    i--; // Address entry before v
                 }
-                auto j = data_addr.find(v);
+                auto j = data_addr.lower_bound(v);
                 if (j != data_addr.end()) {
-                    return j->second;
+                    if (j->first == v) {
+                        return j->second.second;
+                    }
+                    j--; // address entry before v
                 }
-                return "-";
+                auto delta_func = (i != func_addr.end()) ? (v - i->first) : std::numeric_limits<uint64_t>::max();
+                auto delta_data = (j != data_addr.end()) ? (v - j->first) : std::numeric_limits<uint64_t>::max();
+                if (delta_func == delta_data) {
+                    return "-";
+                }
+                auto delta = (delta_func <= delta_data) ? delta_func : delta_data;
+                auto symbol = (delta_func <= delta_data) ?i->second.second : j->second.second;
+                std::ostringstream out;
+                out << symbol << "+0x" << std::hex << delta;
+                return out.str();
             });
         
     } else {

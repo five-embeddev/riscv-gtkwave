@@ -27,7 +27,9 @@
 
 using reg_t = uint64_t;
 using bswap_t = std::function<reg_t(reg_t)>;
-using addr_map_t = std::map<uint64_t, std::string>;
+// address, size, name
+using addr_entry_t = std::pair<size_t, std::string>;
+using addr_map_t = std::map<uint64_t, addr_entry_t>;
 
 static inline uint8_t swap(uint8_t n) { return n; }
 static inline int8_t swap(int8_t n) { return n; }
@@ -175,7 +177,7 @@ void load_elf(const char *buf,
 void dump_symbols(std::ostream &fout, const addr_map_t &symbols, unsigned int skip, bool print_offset) {
     if (symbols.size() > 0) {
         auto last_addr = symbols.cbegin()->first;
-        auto last_name = symbols.cbegin()->second;
+        auto last_name = symbols.cbegin()->second.second;
         uint64_t offset = 0;
         for (const auto &i : symbols) {
             while (last_addr < i.first) {
@@ -189,10 +191,10 @@ void dump_symbols(std::ostream &fout, const addr_map_t &symbols, unsigned int sk
                 offset += skip;
             }
             fout << std::hex << std::setw(16) << std::setfill('0') <<  i.first 
-                 << std::dec << " " << i.second << "\n";
+                 << std::dec << " " << i.second.second << "\n";
             last_addr = i.first + skip;
             offset = skip;
-            last_name = i.second;
+            last_name = i.second.second;
         }
     }
 }
@@ -276,8 +278,8 @@ int open_elf_file(const char *elf_file, addr_map_t &func_addr, addr_map_t &data_
           area = &data_addr;
       }
       if (area) {
-          (*area)[bswap(shdr.sh_addr)] = sname + ".start";
-          (*area)[bswap(shdr.sh_addr) + bswap(shdr.sh_size)] = sname + ".end";
+          (*area)[bswap(shdr.sh_addr)] = addr_entry_t{0, sname + ".start"};
+          (*area)[bswap(shdr.sh_addr) + bswap(shdr.sh_size)] = addr_entry_t{0, sname + ".end"};
       }
   };
 
@@ -307,14 +309,14 @@ int open_elf_file(const char *elf_file, addr_map_t &func_addr, addr_map_t &data_
           }
       }
       else if (st_type == STT_OBJECT) {
-          data_addr[bswap(sym.st_value)] = data;              
+          data_addr[bswap(sym.st_value)] = addr_entry_t{sym.st_size, data};
           if (verbose) {
               std::cerr << sym_file << ":common:" << sym_section << "." << data 
                         << " = 0x" << std::hex << bswap(sym.st_value) << "\n";
           }
       }
       else if (st_type == STT_FUNC) {
-          func_addr[bswap(sym.st_value)] = data;              
+          func_addr[bswap(sym.st_value)] = addr_entry_t{sym.st_size,data};
           if (verbose) {
               std::cerr << sym_file << ":func:" << sym_section << "." << data 
                         << " = 0x" << std::hex << bswap(sym.st_value) << "\n";
