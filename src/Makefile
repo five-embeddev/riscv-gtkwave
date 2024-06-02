@@ -7,7 +7,8 @@ CPPFLAGS=\
 CPPFLAGS_decode_addr=
 LDFLAGS=\
 		-L ../extern/riscv-isa-sim/ \
-		-ldl 
+		-ldl \
+		-lpthread
 
 LIBS=\
 	../extern/riscv-isa-sim/libdisasm.a \
