@@ -8,7 +8,6 @@ CPPFLAGS_decode_addr=
 LDFLAGS=\
 		-L ../extern/riscv-isa-sim/ \
 		-ldl \
-		-lpthread
 
 LIBS=\
 	../extern/riscv-isa-sim/libdisasm.a \
@@ -22,7 +21,8 @@ LIBS=\
 LDFLAGS_decode_inst=\
 		${LIBS} \
 		-ldl \
-		-lboost_regex
+		-lboost_regex \
+		-lpthread
 
 
 all : decode_addr decode_inst decode_reg
