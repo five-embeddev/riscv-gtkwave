@@ -5,7 +5,7 @@ ARCH=\
 	rv32imac \
 	rv64imac 
 
-all : configure build csrs subdirs
+all : configure build-dep build csrs subdirs
 
 configure:
 	pip3 install -r requirements.txt
@@ -15,8 +15,10 @@ clean :
 	rm -f csr_data/*
 	${MAKE} -C src/ clean
 
-build:
+build-dep : 
 	cd extern/riscv-isa-sim/; make -j8
+
+build:
 	${MAKE} -C src
 
 csrs:

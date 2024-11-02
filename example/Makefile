@@ -6,3 +6,6 @@ run : symbols_data.gtkw symbols_func.gtkw
 
 ../src/decode_addr ../src/decode_inst : 
 	${MAKE} -C ../src
+
+run_decode :
+	../src/decode_addr

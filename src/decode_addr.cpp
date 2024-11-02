@@ -13,7 +13,8 @@
 int main(int argc, char **argv)
 {
     // If DECODE_ELF is set then read address from stdin and decode (gtkwave filter)
-    std::string elf_file{getenv("DECODE_ELF")};
+    auto a = getenv("DECODE_ELF");
+    std::string elf_file{a ? a : ""};
     const bool interactive_mode{!elf_file.empty()};
     if (!interactive_mode) {
         // Read elf files and dump to text file
